@@ -1,53 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fillSection } from '../redux/actions';
 import MusicCard from './MusicCard';
 
-function MainSection({ fillSection, rockSection, popSection, hipHopSection }) {
-  useEffect(() => {
-    fillSection('queen', '#rockSection');
-    fillSection('katyperry', '#popSection');
-    fillSection('eminem', '#hipHopSection');
-  }, [fillSection]);
+class MainSection extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasError: false,
+    };
+  }
 
-  return (
-    <main className="col-12 col-md-9 offset-md-3 mainPage">
-      <div id="rockSection">
-        <h2>Rock Section</h2>
-        <div className="row">
-          {rockSection.map((song) => (
-            <MusicCard key={song.id} song={song} />
-          ))}
-        </div>
-      </div>
-      <div id="popSection">
-        <h2>Pop Section</h2>
-        <div className="row">
-          {popSection.map((song) => (
-            <MusicCard key={song.id} song={song} />
-          ))}
-        </div>
-      </div>
-      <div id="hipHopSection">
-        <h2>Hip Hop Section</h2>
-        <div className="row">
-          {hipHopSection.map((song) => (
-            <MusicCard key={song.id} song={song} />
-          ))}
-        </div>
-      </div>
-    </main>
-  );
+  static getDerivedStateFromError(error) {
+    // Aggiorniamo lo stato per indicare che si è verificato un errore
+    return { hasError: true };
+  }
+
+  render() {
+    // Se si è verificato un errore, mostriamo un messaggio di errore
+    if (this.state.hasError) {
+      return <div>Oops! Qualcosa è andato storto.</div>;
+    }
+
+    const { sections } = this.props;
+
+    return (
+      <main className="col-12 col-md-9 offset-md-3 mainPage">
+        {Object.keys(sections).map((sectionName, index) => (
+          <div className="row" key={index}>
+            <div className="col-10">
+              <div>
+                <h2>{sectionName.toUpperCase()}</h2>
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3">
+                  {sections[sectionName].map((song, index) => (
+                    <MusicCard key={index} song={song} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </main>
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
-  rockSection: state.music.sections['#rockSection'],
-  popSection: state.music.sections['#popSection'],
-  hipHopSection: state.music.sections['#hipHopSection'],
+  sections: state.music.sections,
 });
 
-const mapDispatchToProps = {
-  fillSection,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainSection);
+export default connect(mapStateToProps)(MainSection);
