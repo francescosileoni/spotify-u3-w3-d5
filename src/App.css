@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+/* App.css */
+/* Aggiungi qui i tuoi stili CSS globali o per l'applicazione */
+
+/* Stile per la barra laterale */
+.col-2 {
+  background-color: #f0f0f0;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar-brand img {
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar-nav .nav-link {
+  color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.input-group {
+  margin-top: 20px;
+}
+
+/* Stile per la sezione principale */
+.mainPage {
+  padding-top: 20px;
+}
+
+.mainLinks a {
+  margin-right: 20px;
+}
+
+.imgLinks {
+  margin-top: 20px;
+}
+
+/* Stile per il player */
+.bg-container {
+  background-color: #333;
+  color: #fff;
+}
+
+.playerControls {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.progress {
+  height: 5px;
+  background-color: #666;
 }
